@@ -1,0 +1,100 @@
+# @Author: Fabrice Krebs
+# @Date:   28-10-2022 13:58:21
+# @Last Modified by:   Wolfgang Huse
+# @Last Modified time: 02-05-2023 07:22:11
+
+packer {
+  required_version = ">= 1.7.3"
+  required_plugins {
+    nutanix = {
+      version = ">= 0.1.3"
+      source  = "github.com/nutanix-cloud-native/nutanix"
+    }
+  }
+}
+
+source "nutanix" "windows2019" {
+  nutanix_username = var.nutanix_username
+  nutanix_password = var.nutanix_password
+  nutanix_endpoint = var.nutanix_endpoint
+  nutanix_insecure = var.nutanix_insecure
+  cluster_name     = var.nutanix_cluster
+  
+  vm_disks {
+      image_type = "ISO_IMAGE"
+      source_image_name = var.windows_2019_iso_image_name
+  }
+
+  vm_disks {
+      image_type = "ISO_IMAGE"
+      source_image_name = var.virtio_iso_image_name
+  }
+
+  vm_disks {
+      image_type = "DISK"
+      disk_size_gb = 40
+  }
+
+  vm_nics {
+    subnet_name       = var.nutanix_subnet
+  }
+  
+  cd_files         = ["scripts/autounattend.xml","scripts/unattend.xml", "scripts/sysprep.bat", "scripts/cloudbase-init.conf"]
+  
+  image_name        = format("%s-%s",var.image_name,"2019") 
+  shutdown_command = "F:/sysprep.bat"
+  shutdown_timeout  = "10m"
+  cpu               = 2
+  os_type           = "Windows"
+  memory_mb         = "8192"
+  communicator      = "winrm"
+  winrm_username    = var.administrator_username
+  winrm_password    = var.administrator_password
+  winrm_port        = 5986
+  winrm_insecure    = true
+  winrm_use_ssl     = true
+  winrm_timeout     = "45m"
+}
+
+source "nutanix" "windows2022" {
+  nutanix_username = var.nutanix_username
+  nutanix_password = var.nutanix_password
+  nutanix_endpoint = var.nutanix_endpoint
+  nutanix_insecure = var.nutanix_insecure
+  cluster_name     = var.nutanix_cluster
+  
+  vm_disks {
+      image_type = "ISO_IMAGE"
+      source_image_name = var.windows_2022_iso_image_name
+  }
+
+  vm_disks {
+      image_type = "ISO_IMAGE"
+      source_image_name = var.virtio_iso_image_name
+  }
+
+  vm_disks {
+      image_type = "DISK"
+      disk_size_gb = 40
+  }
+
+  vm_nics {
+    subnet_name       = var.nutanix_subnet
+  }
+  
+  cd_files         = ["scripts/autounattend.xml","scripts/unattend.xml", "scripts/sysprep.bat", "scripts/cloudbase-init.conf"]
+  
+  image_name        = format("%s-%s",var.image_name,"2022") 
+  shutdown_command = "F:/sysprep.bat"
+  shutdown_timeout  = "10m"
+  cpu               = 2
+  os_type           = "Windows"
+  memory_mb         = "8192"
+  communicator      = "winrm"
+  winrm_username    = var.administrator_username
+  winrm_password    = var.administrator_password
+  winrm_port        = 5986
+  winrm_insecure    = true
+  winrm_use_ssl     = true
+  winrm_timeout     = "45m"
+}
