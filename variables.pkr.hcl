@@ -33,15 +33,19 @@ variable "nutanix_cluster" {
   type = string
 }
 
-variable "windows_2019_iso_image_name" {
+variable "windows_iso_image_name" {
   type = string
 }
 
-variable "windows_2022_iso_image_name" {
+variable "windows_iso_image_uri" {
   type = string
 }
 
 variable "virtio_iso_image_name" {
+  type = string
+}
+
+variable "virtio_iso_image_uri" {
   type = string
 }
 
