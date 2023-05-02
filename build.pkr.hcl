@@ -4,11 +4,8 @@
 # @Last Modified time: 02-05-2023 07:14:54
 
 build {
-  source "nutanix.windows2019" {
-    name = "windows2019"
-  }
-  source "nutanix.windows2022" {
-    name = "windows2022"
+  source "nutanix.windows" {
+    name = "windows"
   }
 
   #execute the install script to install customer settings
