@@ -46,7 +46,7 @@ source "nutanix" "windows" {
                       "scripts/sysprep.bat", 
                       "scripts/cloudbase-init.conf"]
   
-  image_name        = format("%s-%s",var.image_name,"2022") 
+  image_name        = var.image_name
   shutdown_command = "F:/sysprep.bat"
   shutdown_timeout  = "10m"
   cpu               = 2
